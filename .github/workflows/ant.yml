@@ -34,7 +34,7 @@ jobs:
 
         registry: registry-url.io
 
-        dockerfile: Dockerfile
+        dockerfile: dockerfile
 
         username: ${{ secrets.DOCKER_USERNAME }}
 
