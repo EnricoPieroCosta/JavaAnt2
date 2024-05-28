@@ -28,11 +28,11 @@ jobs:
 
       with:
 
-        image: enricopierocosta/image
+        image: enricopierocosta/dockerenricoactions
 
-        tags: v1, latest
+        tags: 1.0
 
-        registry: registry-url.io
+        registry: docker.io
 
         dockerfile: dockerfile
 
