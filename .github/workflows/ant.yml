@@ -25,12 +25,16 @@ jobs:
     - name: Build & push Docker image
 
       uses: mr-smithers-excellent/docker-build-push@v6
+      
+    - name: Git Version
+      id: version
+      uses: codacy/git-version@2.7.1
 
       with:
 
         image: enricopierocosta/dockerenricoactions
 
-        tags: v${{ Github.run_number }}
+        tags: v${{ steps.version.outputs.version }}
 
         registry: docker.io
 
