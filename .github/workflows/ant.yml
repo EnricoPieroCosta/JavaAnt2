@@ -30,7 +30,7 @@ jobs:
 
         image: enricopierocosta/dockerenricoactions
 
-        tags: $v{{ Github.run_number }}
+        tags: v${{ Github.run_number }}
 
         registry: docker.io
 
