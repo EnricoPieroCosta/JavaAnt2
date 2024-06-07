@@ -1,46 +1,36 @@
 name: Build Docker Image
- 
+
 on:
-
   push:
-
     branches: [ "main" ]
-
   pull_request:
-
     branches: [ "main" ]
- 
+
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Fetch the whole repo history
 
-    - name: Check out code
+      - name: Git Version
+        id: version
+        uses: codacy/git-version@2.7.1
 
-      uses: actions/checkout@v3
+      - name: Use the version
+        run: |
+          echo "Version: ${{ steps.version.outputs.version }}"
+          echo "Previous Version: ${{ steps.version.outputs.previous-version }}"
 
-    - name: Build & push Docker image
-
-      uses: mr-smithers-excellent/docker-build-push@v6
-      
-    - name: Git Version
-      id: version
-      uses: codacy/git-version@2.7.1
-
-      with:
-
-        image: enricopierocosta/dockerenricoactions
-
-        tags: v${{ steps.version.outputs.version }}
-
-        registry: docker.io
-
-        dockerfile: dockerfile
-
-        username: ${{ secrets.DOCKER_USERNAME }}
-
-        password: ${{ secrets.DOCKER_PASSWORD }}
-
+      - name: Build & push Docker image
+        uses: mr-smithers-excellent/docker-build-push@v6
+        with:
+          image: enricopierocosta/dockerenricoactions
+          tags: ${{ steps.version.outputs.version }}
+          registry: docker.io
+          dockerfile: dockerfile
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
